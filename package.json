@@ -1,0 +1,14 @@
+{
+  "name": "1.http-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Piterom911/back-end-C.git",
+  "author": "Roman Dogoda <piterom911@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
