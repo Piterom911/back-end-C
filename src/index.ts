@@ -18,23 +18,19 @@ const db = {
 app.get('/', (req, res) => {
     res.send('Hello my World!!!!!');
 })
-
 // fetch("http://localhost:3000/courses/3", {method: 'get'})
 //     .then(res => res.json())
 //     .then(json => console.log(json))
-
 app.get('/courses', (req, res) => {
     const foundCourses = req.query.title
         ? db.courses.filter(c => c.title.indexOf(req.query.title as string) > -1)
         : db.courses
     res.json(foundCourses);
 });
-
 app.get('/courses/:id', (req, res) => {
     const foundCourse = db.courses.find(c => +req.params.id === c.id)
     !foundCourse ? res.sendStatus(404) : res.json(foundCourse);
 });
-
 // fetch("http://localhost:3000/courses", {
 //     method: 'POST',
 //     body: JSON.stringify({title: 'dba'}),
@@ -51,6 +47,17 @@ app.post('/courses', (req, res) => {
     db.courses.push(createdCourse)
     res.json(createdCourse)
 })
+app.delete('/courses/:id', (req, res) => {
+    db.courses = db.courses.filter(c => +req.params.id !== c.id)
+    res.sendStatus(204)
+});
+app.put('/courses/:id', (req, res) => {
+    if (!req.body.title) return
+    const foundCourse = db.courses.find(c => +req.params.id === c.id)
+    !foundCourse ? res.sendStatus(404) : foundCourse.title = req.body.title;
+    res.sendStatus(204)
+});
+
 
 
 

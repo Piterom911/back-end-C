@@ -47,6 +47,17 @@ app.post('/courses', (req, res) => {
     db.courses.push(createdCourse);
     res.json(createdCourse);
 });
+app.delete('/courses/:id', (req, res) => {
+    db.courses = db.courses.filter(c => +req.params.id !== c.id);
+    res.sendStatus(204);
+});
+app.put('/courses/:id', (req, res) => {
+    if (!req.body.title)
+        return;
+    const foundCourse = db.courses.find(c => +req.params.id === c.id);
+    !foundCourse ? res.sendStatus(404) : foundCourse.title = req.body.title;
+    res.sendStatus(204);
+});
 // lesson #2
 // app.get('/', (req, res) => {
 //     res.send('Hello my World!!!!!');
